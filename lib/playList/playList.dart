@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:music_player/modal/modal.dart';
 import 'package:music_player/weidgets/neuBox.dart';
-import 'package:music_player/songScreen/songScreen.dart';
+import 'package:music_player/SourahScreen/SorahScreen.dart';
 
 class playListScreen extends StatefulWidget {
   const playListScreen({Key? key}) : super(key: key);
@@ -41,7 +41,7 @@ class _playListScreenState extends State<playListScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: const [
-                Text("M U S I C A L     E R A",style: TextStyle(
+                Text('F I V E    S U R A H',style: TextStyle(
                     fontSize: 18,fontStyle: FontStyle.italic),
                 ),
                 Icon(Icons.search),
@@ -67,7 +67,7 @@ class _playListScreenState extends State<playListScreen> {
                       return listTileSong(
                         ontab:(){
                           audioPlayer.dispose();
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>SongPage(indexnumber: index,)));
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>SorahPage(indexnumber: index,)));
                         },
                         title: metaData.title,
                         singer: metaData.artist??"",
@@ -109,7 +109,7 @@ class listTileSong extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                   child: SizedBox.fromSize(
                     size: const Size.fromRadius(20),
-                    child: CachedNetworkImage(imageUrl: image.toString(),fit:BoxFit.cover ,),
+                    child: CachedNetworkImage(imageUrl: image.toString(),fit:BoxFit.cover,color: Colors.white.withOpacity(.1), colorBlendMode: BlendMode.softLight,),
                   ),
                 ),
               ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:music_player/GetStarted/getStarted.dart';
 import 'package:music_player/splashScreen/spashScreen.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 
