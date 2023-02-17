@@ -2,6 +2,8 @@ import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
+import 'package:music_player/modal/stateMaanigment.dart';
 import 'package:rxdart/rxdart.dart'as RX;
 import 'package:just_audio/just_audio.dart';
 import 'package:just_audio_background/just_audio_background.dart';
@@ -20,7 +22,7 @@ class SorahPage extends StatefulWidget {
 
 class _SorahPageState extends State<SorahPage> {
 
-
+  final SurahLikeController surahController=Get.put(SurahLikeController());
   AudioPlayer audioPlayer=AudioPlayer();
   List<String> itemList=[];
 
@@ -137,14 +139,20 @@ class _SorahPageState extends State<SorahPage> {
                                 ),
                                  InkWell(
                                    onTap: ()async{
-                                     if(sp!.getStringList("like")!.contains(metaData.id.toString())){
-                                       print("dislike");
+                                     surahController.favoriteSuranName.contains(metaData.id)?
+                                     surahController.removeToFavourite(metaData.id):
+                                     surahController.addToFavourite(metaData.id);
+                                    // if(sp!.getStringList("like")!.contains(metaData.id.toString())){
+                                      if(!surahController.favoriteSuranName.contains(metaData.id)||
+                                          sp!.getStringList("like")!.contains(metaData.id.toString()))
+                                      {
+                                    print(surahController.favoriteSuranName);
+                                           print("dislike");
                                        print( sp!.getStringList("like"));
                                        itemList= sp!.getStringList("like")!;
                                        itemList.remove(metaData.id);
                                         sp!.setStringList("like",itemList);
                                        print( sp!.getStringList("like"));
-
                                        final snackBar = SnackBar(
                                          content: const Text('Removed from Like List!'),
                                          backgroundColor: (Colors.black12),
@@ -155,14 +163,18 @@ class _SorahPageState extends State<SorahPage> {
                                        );
                                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
                                      }else{
-                                       print("like");
+                                        print(surahController.favoriteSuranName);
+                                        print(metaData.id);
+                                        print(metaData.id.toString());
+                                        print("like");
                                        print( sp!.getStringList("like"));
                                        print(metaData.id.toString());
                                        itemList= sp!.getStringList("like")!;
                                        itemList.add(metaData.id);
                                        sp!.setStringList("like",itemList);
                                        print(sp!.getStringList("like"));
-                                       final snackBar = SnackBar(
+
+                                       final snackBar1 = SnackBar(
                                          content: const Text('Add in like list!'),
                                          backgroundColor: (Colors.black12),
                                          action: SnackBarAction(
@@ -171,15 +183,20 @@ class _SorahPageState extends State<SorahPage> {
                                            },
                                          ),
                                        );
-                                       ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                       ScaffoldMessenger.of(context).showSnackBar(snackBar1);
                                      }
                                    },
                                    child:
-                                     Icon(
+                                   Obx(()=>
+                                       Icon(
                                      Icons.favorite,
-                                     color: sp!.getStringList("like")!.contains(metaData.id)? Colors.red:Colors.white,
+                                     color: surahController.favoriteSuranName.contains(metaData.id)
+                                         ||
+                                         sp!.getStringList("like")!.contains(metaData.id.toString())?
+                                          Colors.red:Colors.white,
                                      size: 32,
                                    ),
+                                 ),
                                  ),
                               ],
                             ),

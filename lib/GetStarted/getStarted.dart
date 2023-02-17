@@ -83,7 +83,8 @@ class getStrated extends StatelessWidget {
                     minimumSize: Size(double.infinity,60),
                   ),
                   onPressed: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>SorahPage(indexnumber: 1)));
+                    Navigator.pushAndRemoveUntil(context,
+                        MaterialPageRoute(builder: (context)=>SorahPage(indexnumber: 1) ),(route)=>false);
                   },
                 ),
               ),

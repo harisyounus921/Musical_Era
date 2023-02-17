@@ -27,11 +27,16 @@ class _spalshScreenState extends State<spalshScreen> {
       bool islogin= sp.getBool("islogin")??false;
 
       if(islogin){
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>SorahPage(indexnumber: 1)));
+        Navigator.pushAndRemoveUntil(context,
+            MaterialPageRoute(builder: (context)=>SorahPage(indexnumber: 1) ),(route)=>false);
       }else{
         sp.setBool("islogin",true);
         sp.setStringList("like", <String>[]);
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>getStrated()));
+        Navigator.pushAndRemoveUntil(context,
+            MaterialPageRoute(builder: (context)=>const getStrated()),
+            // (route)=>route.isFirst
+                (route)=>false
+        );
       }
 
     });
